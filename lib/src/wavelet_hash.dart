@@ -1,4 +1,3 @@
-// filepath: /Users/vaibhav/development/Photo Tidy AI/imagehash/lib/src/wavelet_hash.dart
 import 'package:image/image.dart';
 import 'hash_base.dart';
 
