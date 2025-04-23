@@ -1,4 +1,3 @@
-// filepath: /Users/vaibhav/development/Photo Tidy AI/imagehash/lib/src/perceptual_hash.dart
 import 'dart:math';
 import 'package:image/image.dart';
 import 'hash_base.dart';
@@ -18,17 +17,25 @@ import 'hash_base.dart';
 /// [highFreqFactor] The factor to determine the size of the initial resized image
 ///
 /// Returns an [ImageHash] object containing the hash
-ImageHash perceptualHash(Image image, {int hashSize = 8, int highFreqFactor = 4}) {
+ImageHash perceptualHash(
+  Image image, {
+  int hashSize = 8,
+  int highFreqFactor = 4,
+}) {
+  if (hashSize < 2) {
+    throw ArgumentError('Hash size must be at least 2');
+  }
+
   // Size of the resized image
   final imageSize = hashSize * highFreqFactor;
-  
+
   // Convert to grayscale and resize
   final smallImage = resizeForHash(
     grayscale(image),
     width: imageSize,
-    height: imageSize
+    height: imageSize,
   );
-  
+
   // Compute the average value of each pixel
   final pixels = List<double>.filled(imageSize * imageSize, 0);
   int idx = 0;
@@ -38,36 +45,30 @@ ImageHash perceptualHash(Image image, {int hashSize = 8, int highFreqFactor = 4}
       pixels[idx++] = pixel.r.toDouble();
     }
   }
-  
+
   // Apply 2D DCT (Discrete Cosine Transform)
   final dct = _applyDCT(pixels, imageSize);
-  
-  // Keep only the low-frequency components (top-left corner)
+
   final components = <double>[];
   for (int y = 0; y < hashSize; y++) {
     for (int x = 0; x < hashSize; x++) {
-      // Skip the DC component (0,0)
-      if (x == 0 && y == 0) continue;
+      // Include the DC component (0,0)
       components.add(dct[y * imageSize + x]);
     }
   }
-  
-  // Compute the median value of these components
+
+  // Compute the median value of these components (including DC)
   final med = median(components);
-  
-  // Compute the hash: 1 if component >= median, 0 otherwise
+
+  // Compute the hash: 1 if component > median, 0 otherwise (match Python's >)
   final bits = <bool>[];
   for (int y = 0; y < hashSize; y++) {
     for (int x = 0; x < hashSize; x++) {
-      // Skip the DC component (0,0)
-      if (x == 0 && y == 0) {
-        bits.add(false);
-        continue;
-      }
-      bits.add(dct[y * imageSize + x] >= med);
+      // Compare all components in the top-left block against the median
+      bits.add(dct[y * imageSize + x] > med);
     }
   }
-  
+
   return ImageHash(bits);
 }
 
@@ -80,25 +81,26 @@ ImageHash perceptualHash(Image image, {int hashSize = 8, int highFreqFactor = 4}
 /// Returns a linearized 2D array of DCT coefficients
 List<double> _applyDCT(List<double> pixels, int size) {
   final result = List<double>.filled(size * size, 0);
-  
+
   for (int u = 0; u < size; u++) {
     for (int v = 0; v < size; v++) {
       var sum = 0.0;
-      
+
       for (int x = 0; x < size; x++) {
         for (int y = 0; y < size; y++) {
-          sum += pixels[y * size + x] *
-                 cos((2 * x + 1) * u * pi / (2 * size)) *
-                 cos((2 * y + 1) * v * pi / (2 * size));
+          sum +=
+              pixels[y * size + x] *
+              cos((2 * x + 1) * u * pi / (2 * size)) *
+              cos((2 * y + 1) * v * pi / (2 * size));
         }
       }
-      
+
       // Apply coefficient
       double alphaU = (u == 0) ? 1 / sqrt(2) : 1.0;
       double alphaV = (v == 0) ? 1 / sqrt(2) : 1.0;
       result[v * size + u] = alphaU * alphaV * sum / 4;
     }
   }
-  
+
   return result;
 }
