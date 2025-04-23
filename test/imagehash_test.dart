@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 import 'package:image/image.dart' as img;
-import 'package:imagehash/imagehash.dart';
+import 'package:dart_imagehash/dart_imagehash.dart';
 
 void main() {
   // Create a simple test image
@@ -115,7 +115,7 @@ void main() {
       final hash2 = averageHash(modified);
 
       // The distance should be small for similar images
-      expect(hash1 - hash2  < hash1.bits.length / 4, true);
+      expect(hash1 - hash2 < hash1.bits.length / 4, true);
     });
 
     test('Average Hash differentiates dissimilar images', () {

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:image/image.dart' as img;
-import 'package:imagehash/imagehash.dart';
+import 'package:dart_imagehash/dart_imagehash.dart';
 
 /// Calculate similarity percentage based on hash distance
 double calculateSimilarity(ImageHash hash1, ImageHash hash2) {

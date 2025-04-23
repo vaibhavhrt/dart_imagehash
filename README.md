@@ -1,4 +1,4 @@
-# imagehash
+# dart_imagehash
 
 A Dart package for perceptual image hashing, inspired by the [Python imagehash library](https://github.com/JohannesBuchner/imagehash).
 
@@ -37,7 +37,7 @@ dart pub get
 ```dart
 import 'dart:io';
 import 'package:image/image.dart' as img;
-import 'package:imagehash/imagehash.dart';
+import 'package:dart_imagehash/dart_imagehash.dart';
 
 void main() {
   // Load images
