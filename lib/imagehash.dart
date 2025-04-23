@@ -28,10 +28,10 @@
 
 library;
 
-export 'src/hash_base.dart';
-export 'src/average_hash.dart';
-export 'src/perceptual_hash.dart';
-export 'src/difference_hash.dart';
-export 'src/wavelet_hash.dart';
-export 'src/color_hash.dart';
-export 'src/crop_resistant_hash.dart';
+export 'src/hash_base.dart' show ImageHash;
+export 'src/average_hash.dart' show averageHash;
+export 'src/perceptual_hash.dart' show perceptualHash;
+export 'src/difference_hash.dart' show differenceHash;
+export 'src/wavelet_hash.dart' show waveletHash;
+export 'src/color_hash.dart' show colorHash;
+export 'src/crop_resistant_hash.dart' show cropResistantHash;

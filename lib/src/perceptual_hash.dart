@@ -68,7 +68,7 @@ ImageHash perceptualHash(Image image, {int hashSize = 8, int highFreqFactor = 4}
     }
   }
   
-  return ImageHash(bits, hashSize);
+  return ImageHash(bits);
 }
 
 /// Applies the Discrete Cosine Transform to a 2D matrix of pixel values.

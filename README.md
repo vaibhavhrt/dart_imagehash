@@ -51,7 +51,7 @@ void main() {
   final hash2 = averageHash(image2);
   
   // Calculate the similarity (0-1, where 1 is identical)
-  final hashDistance = hash1.distance(hash2);
+  final hashDistance = hash1 - hash2;
   final similarity = 1.0 - (hashDistance / (hash1.hashSize * hash1.hashSize));
   
   print('Hash 1: ${hash1}');
@@ -62,7 +62,7 @@ void main() {
   // Try other hashing algorithms
   final pHash1 = perceptualHash(image1);
   final pHash2 = perceptualHash(image2);
-  print('Perceptual Hash distance: ${pHash1.distance(pHash2)}');
+  print('Perceptual Hash distance: ${pHash1 - pHash2}');
 }
 ```
 
@@ -72,7 +72,7 @@ Image hashes are compared using the Hamming distance - the number of bits that d
 
 ```dart
 // Get the Hamming distance
-int distance = hash1.distance(hash2);
+int distance = hash1 - hash2;
 
 // Boolean comparison (only true if exactly equal)
 bool identical = hash1 == hash2;

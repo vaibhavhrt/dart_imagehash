@@ -57,7 +57,7 @@ ImageHash differenceHash(
     }
   }
   
-  return ImageHash(bits, hashSize);
+  return ImageHash(bits);
 }
 
 /// Convenience method for horizontal difference hash

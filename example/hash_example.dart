@@ -4,7 +4,7 @@ import 'package:imagehash/imagehash.dart';
 
 /// Calculate similarity percentage based on hash distance
 double calculateSimilarity(ImageHash hash1, ImageHash hash2) {
-  final distance = hash1.distance(hash2);
+  final distance = hash1 - hash2;
   final maxDistance = hash1.bits.length;
   return 100.0 * (1.0 - (distance / maxDistance));
 }
@@ -27,7 +27,7 @@ void compareWithAlgorithm(
 
   print('Hash 1 (seven.PNG):  ${hash1.toHex()}');
   print('Hash 2 (seven2.PNG): ${hash2.toHex()}');
-  print('Hamming distance: ${hash1.distance(hash2)}');
+  print('Hamming distance: ${hash1 - hash2}');
   print('Similarity: ${similarityScore.toStringAsFixed(2)}%');
 }
 

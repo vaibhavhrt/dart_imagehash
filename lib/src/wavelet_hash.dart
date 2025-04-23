@@ -73,7 +73,7 @@ ImageHash waveletHash(
     bits.add(lowFreq[i] >= med);
   }
   
-  return ImageHash(bits, hashSize);
+  return ImageHash(bits);
 }
 
 /// Performs a 2D Haar wavelet decomposition on a square image.

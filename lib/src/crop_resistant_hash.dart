@@ -21,9 +21,6 @@ ImageHash cropResistantHash(
   {int hashSize = 8, 
    int gridSize = 2}
 ) {
-  // Calculate the total size of the hash (gridSize squared * hashSize squared bits)
-  final totalHashSize = hashSize * gridSize;
-  
   // Calculate the cell size (width and height)
   final cellWidth = image.width ~/ gridSize;
   final cellHeight = image.height ~/ gridSize;
@@ -51,7 +48,7 @@ ImageHash cropResistantHash(
     }
   }
   
-  return ImageHash(allBits, totalHashSize);
+  return ImageHash(allBits);
 }
 
 /// A more advanced crop-resistant hash that uses feature points.
@@ -112,7 +109,7 @@ ImageHash cropResistantSegmentedHash(
     allBits.addAll(segmentHash.bits);
   }
   
-  return ImageHash(allBits, hashSize * segments);
+  return ImageHash(allBits);
 }
 
 /// Applies a simple Sobel filter for edge detection.

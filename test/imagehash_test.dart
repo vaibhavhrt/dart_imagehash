@@ -57,19 +57,19 @@ void main() {
 
   group('ImageHash base class tests', () {
     test('ImageHash equality', () {
-      final hash1 = ImageHash([true, false, true, false], 2);
-      final hash2 = ImageHash([true, false, true, false], 2);
-      final hash3 = ImageHash([true, true, true, false], 2);
+      final hash1 = ImageHash([true, false, true, false]);
+      final hash2 = ImageHash([true, false, true, false]);
+      final hash3 = ImageHash([true, true, true, false]);
 
       expect(hash1 == hash2, true);
       expect(hash1 == hash3, false);
     });
 
     test('Hamming distance calculation', () {
-      final hash1 = ImageHash([true, false, true, false], 2);
-      final hash2 = ImageHash([true, false, false, false], 2);
+      final hash1 = ImageHash([true, false, true, false]);
+      final hash2 = ImageHash([true, false, false, false]);
 
-      expect(hash1.distance(hash2), 1);
+      expect(hash1 - hash2, 1);
     });
 
     test('Hex string conversion', () {
@@ -92,12 +92,12 @@ void main() {
         true,
         true,
       ];
-      final hash = ImageHash(bits, 4);
+      final hash = ImageHash(bits);
       final hex = hash.toHex();
 
       expect(hex, "ac53");
 
-      final reconstructed = ImageHash.fromHex(hex, 4);
+      final reconstructed = ImageHash.fromHex(hex);
       expect(reconstructed.bits, bits);
     });
   });
@@ -115,7 +115,7 @@ void main() {
       final hash2 = averageHash(modified);
 
       // The distance should be small for similar images
-      expect(hash1.distance(hash2) < hash1.bits.length / 4, true);
+      expect(hash1 - hash2  < hash1.bits.length / 4, true);
     });
 
     test('Average Hash differentiates dissimilar images', () {
@@ -123,7 +123,7 @@ void main() {
       final hash2 = averageHash(different);
 
       // The distance should be larger for different images
-      expect(hash1.distance(hash2) > hash1.bits.length / 4, true);
+      expect(hash1 - hash2 > hash1.bits.length / 4, true);
     });
 
     test('Perceptual Hash generates consistent results', () {

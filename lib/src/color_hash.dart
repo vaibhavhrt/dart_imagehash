@@ -59,5 +59,5 @@ ImageHash colorHash(Image image, {int hashSize = 8}) {
   }
   
   // Return a hash with 3x the bits (one for each channel)
-  return ImageHash(bits, hashSize);
+  return ImageHash(bits);
 }
