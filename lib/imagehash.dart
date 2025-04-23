@@ -31,5 +31,5 @@ library;
 export 'src/hash_base.dart' show ImageHash;
 export 'src/average_hash.dart' show averageHash;
 export 'src/perceptual_hash.dart' show perceptualHash;
-export 'src/difference_hash.dart' show differenceHash;
+export 'src/difference_hash.dart' show differenceHash, differenceHashVertical;
 export 'src/wavelet_hash.dart' show waveletHash;

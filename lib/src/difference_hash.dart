@@ -16,33 +16,36 @@ import 'hash_base.dart';
 ///
 /// Returns an [ImageHash] object containing the hash
 ImageHash differenceHash(
-  Image image, 
-  {int hashSize = 8, 
-   bool horizontal = true}
-) {
+  Image image, {
+  int hashSize = 8,
+  bool horizontal = true,
+}) {
+  if (hashSize < 2) {
+    throw ArgumentError('Hash size must be at least 2');
+  }
   // For horizontal comparison, we need width = hashSize+1, height = hashSize
   // For vertical comparison, we need width = hashSize, height = hashSize+1
   final width = horizontal ? hashSize + 1 : hashSize;
   final height = horizontal ? hashSize : hashSize + 1;
-  
+
   // Convert to grayscale and resize
   final resizedImage = resizeForHash(
-    grayscale(image), 
-    width: width, 
-    height: height
+    grayscale(image),
+    width: width,
+    height: height,
   );
-  
+
   // Compute the hash based on pixel value differences
   final bits = <bool>[];
-  
+
   if (horizontal) {
     // For each row, compare adjacent pixels horizontally
     for (int y = 0; y < hashSize; y++) {
       for (int x = 0; x < hashSize; x++) {
         final leftPixel = resizedImage.getPixel(x, y);
         final rightPixel = resizedImage.getPixel(x + 1, y);
-        // True if left pixel is greater than right pixel
-        bits.add(leftPixel.r > rightPixel.r);
+        // True if right pixel is greater than left pixel
+        bits.add(leftPixel.r < rightPixel.r);
       }
     }
   } else {
@@ -51,21 +54,16 @@ ImageHash differenceHash(
       for (int x = 0; x < hashSize; x++) {
         final topPixel = resizedImage.getPixel(x, y);
         final bottomPixel = resizedImage.getPixel(x, y + 1);
-        // True if top pixel is greater than bottom pixel
-        bits.add(topPixel.r > bottomPixel.r);
+        // True if bottom pixel is greater than top pixel
+        bits.add(topPixel.r < bottomPixel.r);
       }
     }
   }
-  
+
   return ImageHash(bits);
 }
 
-/// Convenience method for horizontal difference hash
-ImageHash horizontalDifferenceHash(Image image, {int hashSize = 8}) {
-  return differenceHash(image, hashSize: hashSize, horizontal: true);
-}
-
 /// Convenience method for vertical difference hash
-ImageHash verticalDifferenceHash(Image image, {int hashSize = 8}) {
+ImageHash differenceHashVertical(Image image, {int hashSize = 8}) {
   return differenceHash(image, hashSize: hashSize, horizontal: false);
 }
