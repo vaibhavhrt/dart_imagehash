@@ -15,8 +15,6 @@ This package provides multiple image hashing algorithms:
 - **Perceptual Hash (pHash)**: Uses DCT transformation to focus on significant image features
 - **Difference Hash (dHash)**: Compares adjacent pixels to detect gradients in the image
 - **Wavelet Hash (wHash)**: Uses Haar wavelet decomposition to extract frequency information
-- **Color Hash**: Extends the hash concept to work with all three RGB channels
-- **Crop-Resistant Hash**: More robust to cropping operations by using multiple hashes or feature detection
 
 ## Getting started
 
@@ -24,8 +22,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  imagehash: ^0.1.0
-  image: ^4.0.0  # Required for image processing
+  imagehash: latest_version
 ```
 
 Then run:
@@ -90,8 +87,6 @@ var hash = ImageHash.fromHex('f8e0a060c020f8e0', 8);
 - **Perceptual Hash (pHash)**: More accurate but slower, robust to small changes
 - **Difference Hash (dHash)**: Good at detecting edges, robust to brightness changes
 - **Wavelet Hash (wHash)**: Good at preserving texture details, robust to noise
-- **Color Hash**: Use when color information is important
-- **Crop-Resistant Hash**: Use when images might be cropped or for partial matching
 
 ## Additional information
 

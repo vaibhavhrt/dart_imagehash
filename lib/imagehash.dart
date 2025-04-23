@@ -2,7 +2,7 @@
 /// 
 /// This library provides functionality to calculate various image hashes
 /// including Average hash (aHash), Perceptual hash (pHash), Difference hash (dHash),
-/// Wavelet hash (wHash), Color hash, and Crop-resistant hash.
+/// Wavelet hash (wHash).
 /// 
 /// Example:
 /// ```dart
@@ -33,5 +33,3 @@ export 'src/average_hash.dart' show averageHash;
 export 'src/perceptual_hash.dart' show perceptualHash;
 export 'src/difference_hash.dart' show differenceHash;
 export 'src/wavelet_hash.dart' show waveletHash;
-export 'src/color_hash.dart' show colorHash;
-export 'src/crop_resistant_hash.dart' show cropResistantHash;

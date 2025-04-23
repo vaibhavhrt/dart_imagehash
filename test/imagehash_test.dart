@@ -146,19 +146,5 @@ void main() {
 
       expect(hash1 == hash2, true);
     });
-
-    test('Color Hash generates consistent results', () {
-      final hash1 = colorHash(original);
-      final hash2 = colorHash(original);
-
-      expect(hash1 == hash2, true);
-    });
-
-    test('Crop Resistant Hash generates consistent results', () {
-      final hash1 = cropResistantHash(original);
-      final hash2 = cropResistantHash(original);
-
-      expect(hash1 == hash2, true);
-    });
   });
 }

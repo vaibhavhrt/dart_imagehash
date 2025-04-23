@@ -101,17 +101,6 @@ void main() {
       image2,
       (img) => waveletHash(img),
     );
-
-    // Compare using Color Hash
-    compareWithAlgorithm('Color Hash', image1, image2, (img) => colorHash(img));
-
-    // Compare using Crop-Resistant Hash
-    compareWithAlgorithm(
-      'Crop-Resistant Hash',
-      image1,
-      image2,
-      (img) => cropResistantHash(img),
-    );
   } catch (e, stackTrace) {
     print('Error occurred: $e');
     print('Stack trace: $stackTrace');
