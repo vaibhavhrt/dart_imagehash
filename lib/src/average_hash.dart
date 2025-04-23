@@ -18,14 +18,13 @@ ImageHash averageHash(Image image, {int hashSize = 8}) {
   if (hashSize < 2) {
     throw ArgumentError('Hash size must be at least 2');
   }
-  // Convert to grayscale and resize
+
   final smallImage = resizeForHash(
     grayscale(image),
     width: hashSize,
     height: hashSize,
   );
 
-  // Extract pixel values
   final pixels = extractPixelValues(smallImage);
 
   final avg = pixels.average;

@@ -22,38 +22,30 @@ ImageHash differenceHash(
   if (hashSize < 2) {
     throw ArgumentError('Hash size must be at least 2');
   }
-  // For horizontal comparison, we need width = hashSize+1, height = hashSize
-  // For vertical comparison, we need width = hashSize, height = hashSize+1
   final width = horizontal ? hashSize + 1 : hashSize;
   final height = horizontal ? hashSize : hashSize + 1;
 
-  // Convert to grayscale and resize
   final resizedImage = resizeForHash(
     grayscale(image),
     width: width,
     height: height,
   );
 
-  // Compute the hash based on pixel value differences
   final bits = <bool>[];
 
   if (horizontal) {
-    // For each row, compare adjacent pixels horizontally
     for (int y = 0; y < hashSize; y++) {
       for (int x = 0; x < hashSize; x++) {
         final leftPixel = resizedImage.getPixel(x, y);
         final rightPixel = resizedImage.getPixel(x + 1, y);
-        // True if right pixel is greater than left pixel
         bits.add(leftPixel.r < rightPixel.r);
       }
     }
   } else {
-    // For each column, compare adjacent pixels vertically
     for (int y = 0; y < hashSize; y++) {
       for (int x = 0; x < hashSize; x++) {
         final topPixel = resizedImage.getPixel(x, y);
         final bottomPixel = resizedImage.getPixel(x, y + 1);
-        // True if bottom pixel is greater than top pixel
         bits.add(topPixel.r < bottomPixel.r);
       }
     }

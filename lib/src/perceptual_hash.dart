@@ -26,20 +26,15 @@ ImageHash perceptualHash(
     throw ArgumentError('Hash size must be at least 2');
   }
 
-  // Size of the resized image
   final imageSize = hashSize * highFreqFactor;
-
-  // Convert to grayscale and resize
   final smallImage = resizeForHash(
     grayscale(image),
     width: imageSize,
     height: imageSize,
   );
 
-  // Extract pixel values
   final pixels = extractPixelValues(smallImage);
 
-  // Apply 2D DCT (Discrete Cosine Transform)
   final dct = _applyDCT(pixels, imageSize);
 
   final components = <double>[];

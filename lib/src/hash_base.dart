@@ -19,7 +19,6 @@ class ImageHash {
     final totalBits = hexStr.length * 4;
     final hashSide = sqrt(totalBits);
 
-    // Check if the total number of bits forms a perfect square
     if (hashSide != hashSide.floor()) {
       throw ArgumentError(
         'Hex string length ($hexStr.length chars, $totalBits bits) '
@@ -36,7 +35,6 @@ class ImageHash {
       bits.add((value & 1) != 0); // 0001
     }
 
-    // Ensure the correct number of bits were parsed (handles potential leading zeros if hexStr was short)
     if (bits.length != totalBits) {
       throw ArgumentError(
         'Parsed bits length (${bits.length}) does not match expected length ($totalBits) from hex string.',
@@ -74,7 +72,7 @@ class ImageHash {
     }
 
     return Iterable<int>.generate(length).fold<int>(
-      0, // Initial value for the count
+      0,
       (previousValue, index) =>
           previousValue + (bits[index] != other.bits[index] ? 1 : 0),
     );

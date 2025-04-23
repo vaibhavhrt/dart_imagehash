@@ -25,20 +25,15 @@ ImageHash waveletHash(
     throw ArgumentError('Only haar wavelet mode is supported');
   }
 
-  // Size of the resized image
   final imageSize = hashSize * scale;
-
-  // Convert to grayscale and resize
   final smallImage = resizeForHash(
     grayscale(image),
     width: imageSize,
     height: imageSize,
   );
 
-  // Extract pixel values to double array
   final pixels = extractPixelValues(smallImage);
 
-  // Apply Haar wavelet decomposition
   var coeffs = pixels;
   var size = imageSize;
 
@@ -58,7 +53,6 @@ ImageHash waveletHash(
     }
   }
 
-  // Compute the median value of the coefficients
   final med = median(lowFreq);
 
   // Compute the hash: 1 if coefficient >= median, 0 otherwise
@@ -70,7 +64,6 @@ ImageHash waveletHash(
   return ImageHash(bits);
 }
 
-///
 /// Returns a linearized 2D array of wavelet coefficients
 List<double> _haarWavelet2D(List<double> data, int size, int targetSize) {
   final result = List<double>.from(data);
@@ -116,7 +109,6 @@ List<double> _haarWavelet1D(List<double> data, int targetSize) {
   final result = List<double>.from(data);
   final half = data.length ~/ 2;
 
-  // Compute averages and differences
   for (int i = 0; i < half; i++) {
     final avg = (data[i * 2] + data[i * 2 + 1]) / 2;
     final diff = (data[i * 2] - data[i * 2 + 1]) / 2;
