@@ -3,7 +3,6 @@ version: 1.0.0
 description: "A library for computing perceptual image hashes in Dart."
 homepage: https://github.com/vaibhavhrt/imagehash
 repository: https://github.com/vaibhavhrt/imagehash
-publish_to: pub.dev
 topics:
   - image
   - hash
