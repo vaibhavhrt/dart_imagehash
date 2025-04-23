@@ -1,3 +1,5 @@
-## 0.0.1
+## [1.0.0] - 2025-04-23
 
-* TODO: Describe initial release.
+### Added
+
+- Initial release with image hashing functionality.
