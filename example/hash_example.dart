@@ -29,8 +29,8 @@ void compareWithAlgorithm(
   // Calculate similarity score (0-100%, where 100% means identical)
   final similarityScore = calculateSimilarity(hash1, hash2);
 
-  print('Hash 1 ($imageName1):  ${hash1.toHex()}');
-  print('Hash 2 ($imageName2): ${hash2.toHex()}');
+  print('Hash 1 ($imageName1):  ${hash1.toString()}');
+  print('Hash 2 ($imageName2): ${hash2.toString()}');
   print('Hamming distance: ${hash1 - hash2}');
   print('Similarity: ${similarityScore.toStringAsFixed(2)}%');
 }

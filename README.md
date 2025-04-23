@@ -3,6 +3,7 @@
 A Dart package for perceptual image hashing, inspired by the [Python imagehash library](https://github.com/JohannesBuchner/imagehash).
 
 Image hashing algorithms generate compact, fixed-length fingerprints from images that allow you to:
+
 - Find visually similar images (even with small transformations)
 - Detect duplicate or near-duplicate images
 - Perform content-based image retrieval
@@ -11,10 +12,10 @@ Image hashing algorithms generate compact, fixed-length fingerprints from images
 
 This package provides multiple image hashing algorithms:
 
-- **Average Hash (aHash)**: A simple but effective algorithm that compares pixel values to the average
-- **Perceptual Hash (pHash)**: Uses DCT transformation to focus on significant image features
-- **Difference Hash (dHash)**: Compares adjacent pixels to detect gradients in the image
-- **Wavelet Hash (wHash)**: Uses Haar wavelet decomposition to extract frequency information
+- **Average Hash (aHash)**
+- **Perceptual Hash (pHash)**
+- **Difference Hash (dHash)**
+- **Wavelet Hash (wHash)**
 
 ## Getting started
 
@@ -42,26 +43,32 @@ void main() {
   // Load images
   final image1 = img.decodeImage(File('image1.jpg').readAsBytesSync())!;
   final image2 = img.decodeImage(File('image2.jpg').readAsBytesSync())!;
-  
+
   // Calculate hashes
   final hash1 = averageHash(image1);
   final hash2 = averageHash(image2);
-  
+
   // Calculate the similarity (0-1, where 1 is identical)
   final hashDistance = hash1 - hash2;
   final similarity = 1.0 - (hashDistance / (hash1.hashSize * hash1.hashSize));
-  
+
   print('Hash 1: ${hash1}');
   print('Hash 2: ${hash2}');
   print('Distance: $hashDistance');
   print('Similarity: ${(similarity * 100).toStringAsFixed(2)}%');
-  
+
   // Try other hashing algorithms
   final pHash1 = perceptualHash(image1);
   final pHash2 = perceptualHash(image2);
   print('Perceptual Hash distance: ${pHash1 - pHash2}');
 }
 ```
+
+For a more comprehensive example that demonstrates comparing images with all four hash algorithms, check out the [example](example) included in this package. The example demonstrates how to:
+
+- Calculate and compare hashes for similar and different images
+- Display similarity percentages for each algorithm
+- Handle file loading with relative paths
 
 ## Hash Comparison
 
@@ -81,16 +88,10 @@ String hexString = hash1.toString(); // or hash1.toHex()
 var hash = ImageHash.fromHex('f8e0a060c020f8e0', 8);
 ```
 
-## Algorithm Selection Guide
-
-- **Average Hash (aHash)**: Fastest algorithm, works well for simple cases
-- **Perceptual Hash (pHash)**: More accurate but slower, robust to small changes
-- **Difference Hash (dHash)**: Good at detecting edges, robust to brightness changes
-- **Wavelet Hash (wHash)**: Good at preserving texture details, robust to noise
-
 ## Additional information
 
 This package is a Dart implementation of the algorithms found in the [Python imagehash library](https://github.com/JohannesBuchner/imagehash). For more information about the theory behind perceptual hashing, see:
 
 - [Perceptual Hashing](https://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html)
 - [pHash.org](https://www.phash.org/)
+- [Difference Hashing](https://www.hackerfactor.com/blog/index.php?/archives/529-Kind-of-Like-That.html)
