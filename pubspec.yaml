@@ -1,7 +1,15 @@
 name: imagehash
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+version: 1.0.0
+description: "A library for computing perceptual image hashes in Dart."
+homepage: https://github.com/vaibhavhrt/imagehash
+repository: https://github.com/vaibhavhrt/imagehash
+publish_to: pub.dev
+topics:
+  - image
+  - hash
+  - imagehash
+  - perceptual-hashing
+  - image-comparison
 
 environment:
   sdk: ^3.7.2
@@ -13,6 +21,5 @@ dependencies:
 dev_dependencies:
   lints: ^5.1.1
   test: ^1.25.15
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
