@@ -100,7 +100,7 @@ Image resizeForHash(Image image, {required int width, required int height}) {
     image,
     width: width,
     height: height,
-    interpolation: Interpolation.average,
+    interpolation: Interpolation.cubic,
   );
 }
 

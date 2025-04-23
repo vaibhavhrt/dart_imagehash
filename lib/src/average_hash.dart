@@ -35,7 +35,7 @@ ImageHash averageHash(Image image, {int hashSize = 8}) {
   }
 
   final avg = pixels.average;
-  final bits = pixels.map((p) => p >= avg).toList();
+  final bits = pixels.map((p) => p > avg).toList();
 
   return ImageHash(bits);
 }
