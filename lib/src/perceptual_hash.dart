@@ -36,15 +36,8 @@ ImageHash perceptualHash(
     height: imageSize,
   );
 
-  // Compute the average value of each pixel
-  final pixels = List<double>.filled(imageSize * imageSize, 0);
-  int idx = 0;
-  for (int y = 0; y < imageSize; y++) {
-    for (int x = 0; x < imageSize; x++) {
-      final pixel = smallImage.getPixel(x, y);
-      pixels[idx++] = pixel.r.toDouble();
-    }
-  }
+  // Extract pixel values
+  final pixels = extractPixelValues(smallImage);
 
   // Apply 2D DCT (Discrete Cosine Transform)
   final dct = _applyDCT(pixels, imageSize);
@@ -60,7 +53,7 @@ ImageHash perceptualHash(
   // Compute the median value of these components (including DC)
   final med = median(components);
 
-  // Compute the hash: 1 if component > median, 0 otherwise (match Python's >)
+  // Compute the hash: 1 if component > median, 0 otherwise
   final bits = <bool>[];
   for (int y = 0; y < hashSize; y++) {
     for (int x = 0; x < hashSize; x++) {

@@ -21,8 +21,10 @@ class ImageHash {
 
     // Check if the total number of bits forms a perfect square
     if (hashSide != hashSide.floor()) {
-      throw ArgumentError('Hex string length ($hexStr.length chars, $totalBits bits) '
-          'does not represent a square hash.');
+      throw ArgumentError(
+        'Hex string length ($hexStr.length chars, $totalBits bits) '
+        'does not represent a square hash.',
+      );
     }
 
     final bits = <bool>[];
@@ -33,10 +35,12 @@ class ImageHash {
       bits.add((value & 2) != 0); // 0010
       bits.add((value & 1) != 0); // 0001
     }
-    
+
     // Ensure the correct number of bits were parsed (handles potential leading zeros if hexStr was short)
     if (bits.length != totalBits) {
-       throw ArgumentError('Parsed bits length (${bits.length}) does not match expected length ($totalBits) from hex string.');
+      throw ArgumentError(
+        'Parsed bits length (${bits.length}) does not match expected length ($totalBits) from hex string.',
+      );
     }
 
     return ImageHash(bits);
@@ -63,8 +67,10 @@ class ImageHash {
   /// using the subtraction operator.
   int operator -(ImageHash other) {
     if (length != other.length) {
-      throw ArgumentError('ImageHashes must be of the same length: '
-          '$length vs ${other.length}');
+      throw ArgumentError(
+        'ImageHashes must be of the same length: '
+        '$length vs ${other.length}',
+      );
     }
 
     return Iterable<int>.generate(length).fold<int>(
@@ -93,7 +99,7 @@ class ImageHash {
 }
 
 /// Utility function to resize an image to the specified dimensions
-/// 
+///
 /// [width] and [height] specify the exact dimensions to resize to
 Image resizeForHash(Image image, {required int width, required int height}) {
   return copyResize(
@@ -104,15 +110,32 @@ Image resizeForHash(Image image, {required int width, required int height}) {
   );
 }
 
+/// Extracts pixel values from an image into a list of doubles
+///
+/// [image] The image to extract pixel values from
+///
+/// Returns a list of pixel values as doubles
+List<double> extractPixelValues(Image image) {
+  final List<double> pixels = [];
+
+  for (int y = 0; y < image.height; y++) {
+    for (int x = 0; x < image.width; x++) {
+      final pixel = image.getPixel(x, y);
+      pixels.add(pixel.r.toDouble());
+    }
+  }
+  return pixels;
+}
+
 /// Calculates the median value of an array
 num median(List<num> values) {
   if (values.isEmpty) {
     throw ArgumentError('Cannot compute median of empty list');
   }
-  
+
   final sorted = List<num>.from(values)..sort();
   final middle = sorted.length ~/ 2;
-  
+
   if (sorted.length % 2 == 1) {
     return sorted[middle];
   } else {

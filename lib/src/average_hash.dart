@@ -25,14 +25,8 @@ ImageHash averageHash(Image image, {int hashSize = 8}) {
     height: hashSize,
   );
 
-  final List<int> pixels = [];
-  for (int y = 0; y < hashSize; y++) {
-    for (int x = 0; x < hashSize; x++) {
-      final pixel = smallImage.getPixel(x, y);
-      // For grayscale images, r, g, and b are the same, so we can use any channel
-      pixels.add(pixel.r.toInt());
-    }
-  }
+  // Extract pixel values
+  final pixels = extractPixelValues(smallImage);
 
   final avg = pixels.average;
   final bits = pixels.map((p) => p > avg).toList();
