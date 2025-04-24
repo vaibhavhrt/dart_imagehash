@@ -1,5 +1,7 @@
 import 'package:image/image.dart';
-import 'hash_base.dart';
+
+import 'image_hasher.dart';
+import 'image_utils.dart';
 
 /// Computes the difference hash (dHash) of an image.
 ///

@@ -14,7 +14,7 @@ This package provides multiple image hashing algorithms:
 
 - **Average Hash (aHash)**
 - **Perceptual Hash (pHash)**
-- **Difference Hash (dHash)**
+- **Difference Hash (dHash)** (both horizontal and vertical)
 - **Wavelet Hash (wHash)**
 
 ## Getting started
@@ -23,7 +23,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  imagehash: latest_version
+  imagehash: ^2.0.0
 ```
 
 Then run:
@@ -44,13 +44,13 @@ void main() {
   final image1 = img.decodeImage(File('image1.jpg').readAsBytesSync())!;
   final image2 = img.decodeImage(File('image2.jpg').readAsBytesSync())!;
 
-  // Calculate hashes
-  final hash1 = averageHash(image1);
-  final hash2 = averageHash(image2);
+  // Calculate hashes using the ImageHasher utility class
+  final hash1 = ImageHasher.averageHash(image1);
+  final hash2 = ImageHasher.averageHash(image2);
 
   // Calculate the similarity (0-1, where 1 is identical)
   final hashDistance = hash1 - hash2;
-  final similarity = 1.0 - (hashDistance / (hash1.hashSize * hash1.hashSize));
+  final similarity = 1.0 - (hashDistance / hash1.length);
 
   print('Hash 1: ${hash1}');
   print('Hash 2: ${hash2}');
@@ -58,15 +58,24 @@ void main() {
   print('Similarity: ${(similarity * 100).toStringAsFixed(2)}%');
 
   // Try other hashing algorithms
-  final pHash1 = perceptualHash(image1);
-  final pHash2 = perceptualHash(image2);
+  final pHash1 = ImageHasher.perceptualHash(image1);
+  final pHash2 = ImageHasher.perceptualHash(image2);
   print('Perceptual Hash distance: ${pHash1 - pHash2}');
+
+  // Calculate hashes directly from bytes
+  final bytes1 = File('image1.jpg').readAsBytesSync();
+  final bytes2 = File('image2.jpg').readAsBytesSync();
+
+  final hashFromBytes1 = ImageHasher.averageHashFromBytes(bytes1);
+  final hashFromBytes2 = ImageHasher.averageHashFromBytes(bytes2);
+  print('Hash from bytes distance: ${hashFromBytes1 - hashFromBytes2}');
 }
 ```
 
 For a more comprehensive example that demonstrates comparing images with all four hash algorithms, check out the [example](example) included in this package. The example demonstrates how to:
 
 - Calculate and compare hashes for similar and different images
+- Calculate hashes directly from image bytes
 - Display similarity percentages for each algorithm
 - Handle file loading with relative paths
 
@@ -85,7 +94,7 @@ bool identical = hash1 == hash2;
 String hexString = hash1.toString(); // or hash1.toHex()
 
 // Create hash from hex string
-var hash = ImageHash.fromHex('f8e0a060c020f8e0', 8);
+var hash = ImageHash.fromHex('f8e0a060c020f8e0');
 ```
 
 ## Additional information

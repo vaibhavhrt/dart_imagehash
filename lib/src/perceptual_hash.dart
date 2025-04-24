@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:image/image.dart';
-import 'hash_base.dart';
+
+import 'image_hasher.dart';
+import 'image_utils.dart';
 
 /// Computes the perceptual hash (pHash) of an image.
 ///

@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:test/test.dart';
 import 'package:image/image.dart' as img;
+
 import 'package:dart_imagehash/dart_imagehash.dart';
 
 void main() {
@@ -55,6 +58,9 @@ void main() {
     alternatePattern: true,
   ); // Different pattern with alternate colors
 
+  // Convert images to bytes for testing
+  final originalBytes = Uint8List.fromList(img.encodePng(original));
+
   group('ImageHash base class tests', () {
     test('ImageHash equality', () {
       final hash1 = ImageHash([true, false, true, false]);
@@ -104,47 +110,91 @@ void main() {
 
   group('Hash algorithm tests', () {
     test('Average Hash generates consistent results', () {
-      final hash1 = averageHash(original);
-      final hash2 = averageHash(original);
+      final hash1 = ImageHasher.averageHash(original);
+      final hash2 = ImageHasher.averageHash(original);
 
       expect(hash1 == hash2, true);
     });
 
     test('Average Hash detects similar images', () {
-      final hash1 = averageHash(original);
-      final hash2 = averageHash(modified);
+      final hash1 = ImageHasher.averageHash(original);
+      final hash2 = ImageHasher.averageHash(modified);
 
       // The distance should be small for similar images
       expect(hash1 - hash2 < hash1.bits.length / 4, true);
     });
 
     test('Average Hash differentiates dissimilar images', () {
-      final hash1 = averageHash(original);
-      final hash2 = averageHash(different);
+      final hash1 = ImageHasher.averageHash(original);
+      final hash2 = ImageHasher.averageHash(different);
 
       // The distance should be larger for different images
       expect(hash1 - hash2 > hash1.bits.length / 4, true);
     });
 
+    test('Average Hash from bytes matches image-based hash', () {
+      final hashFromImage = ImageHasher.averageHash(original);
+      final hashFromBytes = ImageHasher.averageHashFromBytes(originalBytes);
+
+      expect(hashFromImage == hashFromBytes, true);
+    });
+
     test('Perceptual Hash generates consistent results', () {
-      final hash1 = perceptualHash(original);
-      final hash2 = perceptualHash(original);
+      final hash1 = ImageHasher.perceptualHash(original);
+      final hash2 = ImageHasher.perceptualHash(original);
 
       expect(hash1 == hash2, true);
+    });
+
+    test('Perceptual Hash from bytes matches image-based hash', () {
+      final hashFromImage = ImageHasher.perceptualHash(original);
+      final hashFromBytes = ImageHasher.perceptualHashFromBytes(originalBytes);
+
+      expect(hashFromImage == hashFromBytes, true);
     });
 
     test('Difference Hash generates consistent results', () {
-      final hash1 = differenceHash(original);
-      final hash2 = differenceHash(original);
+      final hash1 = ImageHasher.differenceHash(original);
+      final hash2 = ImageHasher.differenceHash(original);
 
       expect(hash1 == hash2, true);
     });
 
-    test('Wavelet Hash generates consistent results', () {
-      final hash1 = waveletHash(original);
-      final hash2 = waveletHash(original);
+    test('Difference Hash from bytes matches image-based hash', () {
+      final hashFromImage = ImageHasher.differenceHash(original);
+      final hashFromBytes = ImageHasher.differenceHashFromBytes(originalBytes);
+
+      expect(hashFromImage == hashFromBytes, true);
+    });
+
+    test('Vertical Difference Hash generates consistent results', () {
+      final hash1 = ImageHasher.differenceHashVertical(original);
+      final hash2 = ImageHasher.differenceHashVertical(original);
 
       expect(hash1 == hash2, true);
+    });
+
+    test('Vertical Difference Hash from bytes matches image-based hash', () {
+      final hashFromImage = ImageHasher.differenceHashVertical(original);
+      final hashFromBytes = ImageHasher.differenceHashVerticalFromBytes(
+        originalBytes,
+      );
+
+      expect(hashFromImage == hashFromBytes, true);
+    });
+
+    test('Wavelet Hash generates consistent results', () {
+      final hash1 = ImageHasher.waveletHash(original);
+      final hash2 = ImageHasher.waveletHash(original);
+
+      expect(hash1 == hash2, true);
+    });
+
+    test('Wavelet Hash from bytes matches image-based hash', () {
+      final hashFromImage = ImageHasher.waveletHash(original);
+      final hashFromBytes = ImageHasher.waveletHashFromBytes(originalBytes);
+
+      expect(hashFromImage == hashFromBytes, true);
     });
   });
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:image/image.dart' as img;
+import 'dart:typed_data';
+import 'package:image/image.dart';
 import 'package:dart_imagehash/dart_imagehash.dart';
 
 /// Calculate similarity percentage based on hash distance
@@ -12,11 +13,11 @@ double calculateSimilarity(ImageHash hash1, ImageHash hash2) {
 /// Compare images using the specified algorithm and print results
 void compareWithAlgorithm(
   String algorithmName,
-  img.Image image1,
-  img.Image image2,
+  Image image1,
+  Image image2,
   String imageName1,
   String imageName2,
-  ImageHash Function(img.Image) hashFunction,
+  ImageHash Function(Image) hashFunction,
 ) {
   print('\n$algorithmName - Comparing $imageName1 and $imageName2:');
   print(
@@ -25,6 +26,34 @@ void compareWithAlgorithm(
 
   final hash1 = hashFunction(image1);
   final hash2 = hashFunction(image2);
+
+  // Calculate similarity score (0-100%, where 100% means identical)
+  final similarityScore = calculateSimilarity(hash1, hash2);
+
+  print('Hash 1 ($imageName1):  ${hash1.toString()}');
+  print('Hash 2 ($imageName2): ${hash2.toString()}');
+  print('Hamming distance: ${hash1 - hash2}');
+  print('Similarity: ${similarityScore.toStringAsFixed(2)}%');
+}
+
+/// Compare images using the specified algorithm and print results, using bytes directly
+void compareWithAlgorithmFromBytes(
+  String algorithmName,
+  Uint8List bytes1,
+  Uint8List bytes2,
+  String imageName1,
+  String imageName2,
+  ImageHash Function(Uint8List) hashFunction,
+) {
+  print(
+    '\n$algorithmName (from bytes) - Comparing $imageName1 and $imageName2:',
+  );
+  print(
+    '-' * (algorithmName.length + imageName1.length + imageName2.length + 15),
+  );
+
+  final hash1 = hashFunction(bytes1);
+  final hash2 = hashFunction(bytes2);
 
   // Calculate similarity score (0-100%, where 100% means identical)
   final similarityScore = calculateSimilarity(hash1, hash2);
@@ -50,9 +79,13 @@ void main() {
     final cat2 = File('${sampleImagesDir.path}/cat2.JPG');
 
     // Load sample images
-    final image1 = img.decodeImage(cat1.readAsBytesSync())!;
-    final image2 = img.decodeImage(modifiedCatImage.readAsBytesSync())!;
-    final image3 = img.decodeImage(cat2.readAsBytesSync())!;
+    final image1 = decodeImage(cat1.readAsBytesSync())!;
+    final image2 = decodeImage(modifiedCatImage.readAsBytesSync())!;
+    final image3 = decodeImage(cat2.readAsBytesSync())!;
+
+    // Get image bytes
+    final cat1Bytes = Uint8List.fromList(cat1.readAsBytesSync());
+    final modifiedCatBytes = modifiedCatImage.readAsBytesSync();
 
     print('Image Hash Comparison Example');
     print('============================');
@@ -67,7 +100,7 @@ void main() {
       image2,
       'cat1.JPG',
       'cat1-modified.JPG',
-      (img) => averageHash(img),
+      (img) => ImageHasher.averageHash(img),
     );
 
     compareWithAlgorithm(
@@ -76,7 +109,17 @@ void main() {
       image3,
       'cat1.JPG',
       'cat2.JPG',
-      (img) => averageHash(img),
+      (img) => ImageHasher.averageHash(img),
+    );
+
+    // Compare using Average Hash (aHash) from bytes
+    compareWithAlgorithmFromBytes(
+      'Average Hash (aHash)',
+      cat1Bytes,
+      modifiedCatBytes,
+      'cat1.JPG',
+      'cat1-modified.JPG',
+      (bytes) => ImageHasher.averageHashFromBytes(bytes),
     );
 
     // Compare using Perceptual Hash (pHash)
@@ -86,7 +129,7 @@ void main() {
       image2,
       'cat1.JPG',
       'cat1-modified.JPG',
-      (img) => perceptualHash(img),
+      (img) => ImageHasher.perceptualHash(img),
     );
 
     compareWithAlgorithm(
@@ -95,7 +138,7 @@ void main() {
       image3,
       'cat1.JPG',
       'cat2.JPG',
-      (img) => perceptualHash(img),
+      (img) => ImageHasher.perceptualHash(img),
     );
 
     // Compare using Difference Hash (dHash)
@@ -105,7 +148,7 @@ void main() {
       image2,
       'cat1.JPG',
       'cat1-modified.JPG',
-      (img) => differenceHash(img),
+      (img) => ImageHasher.differenceHash(img),
     );
 
     compareWithAlgorithm(
@@ -114,7 +157,7 @@ void main() {
       image3,
       'cat1.JPG',
       'cat2.JPG',
-      (img) => differenceHash(img),
+      (img) => ImageHasher.differenceHash(img),
     );
 
     // Compare using Wavelet Hash (wHash)
@@ -124,7 +167,7 @@ void main() {
       image2,
       'cat1.JPG',
       'cat1-modified.JPG',
-      (img) => waveletHash(img),
+      (img) => ImageHasher.waveletHash(img),
     );
 
     compareWithAlgorithm(
@@ -133,7 +176,7 @@ void main() {
       image3,
       'cat1.JPG',
       'cat2.JPG',
-      (img) => waveletHash(img),
+      (img) => ImageHasher.waveletHash(img),
     );
   } catch (e, stackTrace) {
     print('Error occurred: $e');
