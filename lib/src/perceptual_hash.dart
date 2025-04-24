@@ -28,9 +28,12 @@ ImageHash perceptualHash(
     throw ArgumentError('Hash size must be at least 2');
   }
 
+  final imageCopy = copyResize(image, width: image.width, height: image.height);
+  final grayscaleImage = grayscale(imageCopy);
+
   final imageSize = hashSize * highFreqFactor;
   final smallImage = resizeForHash(
-    grayscale(image),
+    grayscaleImage,
     width: imageSize,
     height: imageSize,
   );
