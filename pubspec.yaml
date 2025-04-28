@@ -1,5 +1,5 @@
 name: dart_imagehash
-version: 2.0.0
+version: 2.0.1
 description: "A library for computing perceptual image hashes in Dart."
 homepage: https://github.com/vaibhavhrt/dart_imagehash
 repository: https://github.com/vaibhavhrt/dart_imagehash
