@@ -19,18 +19,13 @@ This package provides multiple image hashing algorithms:
 
 ## Getting started
 
-Add this to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  imagehash: ^2.0.0
-```
-
-Then run:
+Add dart_imagehash to your project:
 
 ```bash
-dart pub get
+dart pub add dart_imagehash
 ```
+
+This will automatically add the latest version to your pubspec.yaml file.
 
 ## Usage
 
