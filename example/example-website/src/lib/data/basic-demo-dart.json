@@ -1,0 +1,35 @@
+{
+  "algorithm": "dart",
+  "images": [
+    {
+      "name": "cat1.JPG",
+      "url": "https://raw.githubusercontent.com/vaibhavhrt/dart_imagehash/main/sample_images/cat1.JPG",
+      "hashes": {
+        "ahash": "830b434dddde1e6f",
+        "phash": "9961b696695a31f1",
+        "dhash": "5bdc87895bae7c9d",
+        "whash": "eeeef0f50c88b250"
+      }
+    },
+    {
+      "name": "cat1-modified.JPG",
+      "url": "https://raw.githubusercontent.com/vaibhavhrt/dart_imagehash/main/sample_images/cat1-modified.JPG",
+      "hashes": {
+        "ahash": "832b6348ddde1e4f",
+        "phash": "9961b69669593371",
+        "dhash": "5fdaa3897b2e7c9d",
+        "whash": "eeeff8f504cac010"
+      }
+    },
+    {
+      "name": "cat2.JPG",
+      "url": "https://raw.githubusercontent.com/vaibhavhrt/dart_imagehash/main/sample_images/cat2.JPG",
+      "hashes": {
+        "ahash": "6a704025cc82397f",
+        "phash": "d962e6dc99033bd0",
+        "dhash": "e6aa25e99a7bafb3",
+        "whash": "ceddf0f03388a964"
+      }
+    }
+  ]
+}
