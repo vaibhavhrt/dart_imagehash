@@ -27,17 +27,6 @@ body {
 	background-clip: text;
 }
 
-.gradient-bg {
-	background: var(--gradient-primary);
-}
-
-.code-block {
-	background: #1e1e1e;
-	border-radius: 0.5rem;
-	padding: 1rem;
-	overflow-x: auto;
-}
-
 .feature-card {
 	background: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
@@ -62,4 +51,328 @@ body {
 	.feature-card:hover {
 		transform: none;
 	}
+	.animate-float,
+	.animate-float-delayed {
+		animation: none !important;
+	}
+	/* Disable parallax for users who prefer reduced motion */
+	.parallax-layer {
+		transform: none !important;
+	}
+}
+
+/* Custom animations for the abstract background */
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0px) rotate(12deg);
+	}
+	50% {
+		transform: translateY(-20px) rotate(12deg);
+	}
+}
+
+@keyframes float-delayed {
+	0%,
+	100% {
+		transform: translateY(0px) rotate(-12deg);
+	}
+	50% {
+		transform: translateY(-15px) rotate(-12deg);
+	}
+}
+
+.animate-float {
+	animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+	animation: float-delayed 8s ease-in-out infinite;
+	animation-delay: 2s;
+}
+
+/* Responsive adjustments for background elements */
+@media (max-width: 768px) {
+	/* Hide some decorative elements on mobile to reduce clutter */
+	.absolute.bottom-1\/3.left-32,
+	.absolute.top-2\/3.right-1\/4,
+	.absolute.top-20.left-1\/2,
+	.absolute.bottom-1\/2.left-16 {
+		display: none;
+	}
+}
+
+/* Repeating Background Patterns */
+.bg-pattern-grids::before,
+.bg-pattern-grids::after {
+	content: '';
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	background:
+		linear-gradient(45deg, rgba(139, 92, 246, 0.3) 25%, transparent 25%),
+		linear-gradient(-45deg, rgba(139, 92, 246, 0.3) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, rgba(139, 92, 246, 0.3) 75%),
+		linear-gradient(-45deg, transparent 75%, rgba(139, 92, 246, 0.3) 75%);
+	background-size: 8px 8px;
+	background-position:
+		0 0,
+		0 4px,
+		4px -4px,
+		-4px 0px;
+	animation: pulse 4s infinite;
+}
+
+.bg-pattern-grids::before {
+	top: 200px;
+	left: 10%;
+}
+
+.bg-pattern-grids::after {
+	top: 600px;
+	right: 15%;
+}
+
+.bg-pattern-binary {
+	position: relative;
+}
+
+.bg-pattern-binary::before {
+	content: '1010 0110 1100 0101\A0110 1001 1011 0100\A1100 1010 1101 0011\A0101 1110 0011 0010';
+	position: absolute;
+	top: 300px;
+	left: 5%;
+	font-family: monospace;
+	font-size: 10px;
+	color: rgba(34, 197, 94, 0.4);
+	white-space: pre;
+	animation: pulse 6s infinite;
+	animation-delay: 1s;
+}
+
+.bg-pattern-binary::after {
+	content: 'aHash: f8e0a060\AdHash: c020f8e0\ApHash: 7f3e1c0e\AwHash: 3f1f0f07';
+	position: absolute;
+	top: 800px;
+	right: 10%;
+	font-family: monospace;
+	font-size: 9px;
+	color: rgba(168, 85, 247, 0.4);
+	white-space: pre;
+	animation: pulse 6s infinite;
+	animation-delay: 2s;
+}
+
+/* Additional binary patterns */
+.bg-pattern-binary::before {
+	content: '11001010 01100101\A 10101100 11010011\A 01011001 10110100\A Distance: 5 bits\ASimilarity: 92.2%';
+	position: absolute;
+	top: 600px;
+	left: 30%;
+	font-family: monospace;
+	font-size: 8px;
+	color: rgba(6, 182, 212, 0.7);
+	white-space: pre;
+	animation: pulse 8s infinite;
+	animation-delay: 3s;
+}
+
+.bg-pattern-binary:after {
+	content: 'Hamming Distance\A 0010 XOR 0110 = 0100\A Bit count: 1\AMatch threshold: <10';
+	position: absolute;
+	top: 1200px;
+	right: 25%;
+	font-family: monospace;
+	font-size: 8px;
+	color: rgba(251, 146, 60, 0);
+	white-space: pre;
+	animation: pulse 7s infinite;
+	animation-delay: 4s;
+}
+
+.bg-pattern-dct::before,
+.bg-pattern-dct::after {
+	content: '';
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	background:
+		radial-gradient(circle at 2px 2px, rgba(251, 146, 60, 0.6) 1px, transparent 1px),
+		radial-gradient(circle at 6px 6px, rgba(251, 146, 60, 0.4) 1px, transparent 1px),
+		radial-gradient(circle at 10px 10px, rgba(251, 146, 60, 0.3) 1px, transparent 1px),
+		radial-gradient(circle at 14px 14px, rgba(251, 146, 60, 0.2) 1px, transparent 1px);
+	background-size: 4px 4px;
+	animation: pulse 5s infinite;
+}
+
+.bg-pattern-dct::before {
+	top: 400px;
+	left: 20%;
+	animation-delay: 0.5s;
+}
+
+.bg-pattern-dct::after {
+	top: 900px;
+	right: 25%;
+	animation-delay: 2.5s;
+}
+
+.bg-pattern-wavelets::before,
+.bg-pattern-wavelets::after {
+	content: '';
+	position: absolute;
+	width: 120px;
+	height: 80px;
+	background-image:
+		radial-gradient(ellipse 60px 8px at 25% 50%, rgba(139, 92, 246, 0.6) 0%, transparent 50%),
+		radial-gradient(ellipse 60px 8px at 75% 50%, rgba(139, 92, 246, 0.6) 0%, transparent 50%),
+		radial-gradient(ellipse 60px 6px at 25% 60%, rgba(59, 130, 246, 0.5) 0%, transparent 50%),
+		radial-gradient(ellipse 60px 6px at 75% 60%, rgba(59, 130, 246, 0.5) 0%, transparent 50%),
+		radial-gradient(ellipse 60px 4px at 25% 40%, rgba(16, 185, 129, 0.4) 0%, transparent 50%),
+		radial-gradient(ellipse 60px 4px at 75% 40%, rgba(16, 185, 129, 0.4) 0%, transparent 50%);
+	animation: pulse 7s infinite;
+}
+
+.bg-pattern-wavelets::before {
+	top: 500px;
+	left: 15%;
+	animation-delay: 1.5s;
+}
+
+.bg-pattern-wavelets::after {
+	top: 1100px;
+	right: 20%;
+	animation-delay: 3.5s;
+}
+
+.bg-pattern-comparisons::before,
+.bg-pattern-comparisons::after {
+	content: '≈';
+	position: absolute;
+	font-size: 16px;
+	color: rgba(34, 197, 94, 0.4);
+	animation: pulse 8s infinite;
+}
+
+.bg-pattern-comparisons::before {
+	top: 350px;
+	right: 30%;
+	animation-delay: 2s;
+}
+
+.bg-pattern-comparisons::after {
+	top: 750px;
+	left: 25%;
+	animation-delay: 4s;
+}
+
+.bg-pattern-icons::before,
+.bg-pattern-icons::after {
+	position: absolute;
+	font-size: 20px;
+	opacity: 0.3;
+	animation: pulse 10s infinite;
+}
+
+.bg-pattern-icons::before {
+	content: '🖼️';
+	top: 450px;
+	left: 30%;
+	animation-delay: 1s;
+}
+
+.bg-pattern-icons::after {
+	content: '📷';
+	top: 850px;
+	right: 35%;
+	animation-delay: 3s;
+}
+
+.bg-pattern-symbols::before,
+.bg-pattern-symbols::after {
+	position: absolute;
+	font-family: monospace;
+	font-size: 14px;
+	opacity: 0.4;
+	animation: pulse 9s infinite;
+}
+
+.bg-pattern-symbols::before {
+	content: 'Σ';
+	top: 650px;
+	left: 40%;
+	color: rgba(139, 92, 246, 0.5);
+	animation-delay: 2.5s;
+}
+
+.bg-pattern-symbols::after {
+	content: '∇';
+	top: 1000px;
+	right: 40%;
+	color: rgba(59, 130, 246, 0.5);
+	animation-delay: 4.5s;
+}
+
+/* Additional patterns that repeat further down */
+@media (min-height: 1200px) {
+	.bg-pattern-grids {
+		background-image:
+			radial-gradient(circle at 20% 1300px, rgba(139, 92, 246, 0.1) 20px, transparent 20px),
+			radial-gradient(circle at 80% 1500px, rgba(34, 197, 94, 0.1) 15px, transparent 15px);
+	}
+}
+
+/* Parallax Performance Optimizations */
+.parallax-layer {
+	will-change: transform;
+	backface-visibility: hidden;
+	perspective: 1000px;
+}
+
+/* Smooth transforms for better performance */
+.parallax-element {
+	transform-style: preserve-3d;
+	will-change: transform;
+}
+
+/* Reduce parallax intensity on smaller screens */
+@media (max-width: 768px) {
+	.parallax-mobile-reduce {
+		transform: translateY(0px) !important;
+	}
+}
+
+/* Curved line patterns that scroll with content */
+.bg-pattern-curves {
+	position: relative;
+}
+
+.bg-pattern-curves::before {
+	content: '';
+	position: absolute;
+	top: 400px;
+	left: 5%;
+	width: 200px;
+	height: 100px;
+	background-image:
+		radial-gradient(ellipse 100px 8px at 0% 30%, rgba(139, 92, 246, 0.5) 0%, transparent 60%),
+		radial-gradient(ellipse 100px 8px at 50% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 60%),
+		radial-gradient(ellipse 100px 8px at 100% 70%, rgba(139, 92, 246, 0.5) 0%, transparent 60%);
+	animation: pulse 8s infinite;
+	animation-delay: 1s;
+}
+
+.bg-pattern-curves::after {
+	content: '';
+	position: absolute;
+	top: 900px;
+	right: 5%;
+	width: 180px;
+	height: 80px;
+	background-image:
+		radial-gradient(ellipse 90px 6px at 0% 40%, rgba(236, 72, 153, 0.5) 0%, transparent 60%),
+		radial-gradient(ellipse 90px 6px at 50% 60%, rgba(251, 146, 60, 0.4) 0%, transparent 60%),
+		radial-gradient(ellipse 90px 6px at 100% 30%, rgba(236, 72, 153, 0.5) 0%, transparent 60%);
+	animation: pulse 9s infinite;
+	animation-delay: 3s;
 }
