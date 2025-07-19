@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 
 	let isVisible = $state(false);
 
@@ -82,7 +83,7 @@
 						Get Started
 					</a>
 					<a
-						href="/demo"
+						href="{base}/demo"
 						class="rounded-lg border border-white/20 bg-white/10 px-8 py-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
 					>
 						Try Demo

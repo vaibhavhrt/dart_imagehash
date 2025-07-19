@@ -2,6 +2,7 @@
 	import dartHashes from '$lib/data/github-icons-dart.json';
 	import pythonHashes from '$lib/data/github-icons-python.json';
 	import type { AlgorithmsWithZ } from '$lib/types';
+	import { base } from '$app/paths';
 
 	let selectedAlgorithm: AlgorithmsWithZ = $state('ahash');
 	let isLoading = $state(false);
@@ -108,7 +109,7 @@
 			<div class="relative mb-6">
 				<div class="absolute -top-12 right-0 sm:-top-8 md:-top-6">
 					<a
-						href="/demo"
+						href="{base}/demo"
 						class="rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white transition-all hover:bg-white/20 sm:px-4 sm:py-2 sm:text-sm"
 					>
 						← Back to Demo Selection

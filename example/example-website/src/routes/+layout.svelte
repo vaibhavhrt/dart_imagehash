@@ -1,15 +1,16 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
+	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
 
 	const navigation = [
-		{ name: 'Home', href: '/' },
-		{ name: 'Features', href: '/features' },
-		{ name: 'Demo', href: '/demo' },
+		{ name: 'Home', href: base || '/' },
+		{ name: 'Features', href: `${base}/features` },
+		{ name: 'Demo', href: `${base}/demo` },
 		{
 			name: 'Documentation',
 			href: 'https://pub.dev/documentation/dart_imagehash/latest/',
@@ -389,7 +390,7 @@
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="flex h-16 items-center justify-between">
 				<div class="flex items-center">
-					<a href="/" class="gradient-text text-2xl font-bold"> dart_imagehash </a>
+					<a href={base || '/'} class="gradient-text text-2xl font-bold"> dart_imagehash </a>
 				</div>
 
 				<!-- Desktop Navigation -->

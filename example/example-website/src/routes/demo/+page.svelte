@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -40,7 +40,7 @@
 					Perfect for understanding how each algorithm works.
 				</p>
 				<a
-					href="/demo/basic"
+					href="{base}/demo/basic"
 					class="inline-block rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:from-purple-700 hover:to-blue-700"
 				>
 					Try Basic Demo
@@ -63,7 +63,7 @@
 					Python implementations. Great for understanding real-world applications.
 				</p>
 				<a
-					href="/demo/github-icons"
+					href="{base}/demo/github-icons"
 					class="inline-block rounded-lg bg-gradient-to-r from-green-600 to-teal-600 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:from-green-700 hover:to-teal-700"
 				>
 					View GitHub Icons Demo
