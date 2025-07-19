@@ -2,6 +2,8 @@
 
 A beautiful, responsive website for the dart_imagehash package built with SvelteKit 5, Tailwind CSS, and modern web technologies.
 
+🌐 **[Live Website](https://vaibhavhrt.github.io/dart_imagehash/)**
+
 ## Features
 
 - **Modern Design**: Clean, responsive design with smooth animations

@@ -2,6 +2,8 @@
 
 A Dart package for perceptual image hashing, inspired by the [Python imagehash library](https://github.com/JohannesBuchner/imagehash).
 
+🌐 **[Project Website](https://vaibhavhrt.github.io/dart_imagehash/)**
+
 Image hashing algorithms generate compact, fixed-length fingerprints from images that allow you to:
 
 - Find visually similar images (even with small transformations)
@@ -67,7 +69,7 @@ void main() {
 }
 ```
 
-For a more comprehensive example that demonstrates comparing images with all four hash algorithms, check out the [example](example) included in this package. The example demonstrates how to:
+For a more comprehensive example that demonstrates comparing images with all four hash algorithms, check out the [example](example) included in this package. You can also try the [interactive demo](https://vaibhavhrt.github.io/dart_imagehash/demo) to see the algorithms in action. The example demonstrates how to:
 
 - Calculate and compare hashes for similar and different images
 - Calculate hashes directly from image bytes

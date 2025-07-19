@@ -1,7 +1,7 @@
 name: dart_imagehash
-version: 2.0.1
+version: 2.0.2
 description: "A library for computing perceptual image hashes in Dart."
-homepage: https://github.com/vaibhavhrt/dart_imagehash
+homepage: https://vaibhavhrt.github.io/dart_imagehash/
 repository: https://github.com/vaibhavhrt/dart_imagehash
 topics:
   - image
@@ -11,12 +11,12 @@ topics:
   - image-comparison
 
 environment:
-  sdk: ^3.7.2
+  sdk: ^3.8.1
 
 dependencies:
   collection: ^1.19.1
   image: ^4.5.4
 
 dev_dependencies:
-  lints: ^5.1.1
+  lints: ^6.0.0
   test: ^1.25.15
