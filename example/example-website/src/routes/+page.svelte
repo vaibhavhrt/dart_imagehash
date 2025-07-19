@@ -10,7 +10,7 @@
 	const features = [
 		{
 			title: 'Average Hash (aHash)',
-			description: 'Fast and simple hashing based on average color values',
+			description: 'Fast and simple hashing comparing pixels against image average',
 			icon: '📊'
 		},
 		{
@@ -20,7 +20,7 @@
 		},
 		{
 			title: 'Difference Hash (dHash)',
-			description: 'Efficient hashing based on gradient differences',
+			description: 'Efficient hashing based on adjacent pixel comparisons',
 			icon: '📈'
 		},
 		{

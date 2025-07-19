@@ -3,7 +3,7 @@
 		{
 			name: 'Average Hash (aHash)',
 			description:
-				'The simplest and fastest hashing algorithm that works by reducing the image to a grayscale 8x8 thumbnail, calculating the average color value, and then setting each bit based on whether each pixel is above or below the average.',
+				'The simplest and fastest hashing algorithm that reduces the image to a grayscale 8x8 thumbnail, calculates the average color value, and sets each bit based on whether each pixel is above or below the average. This creates a 64-bit fingerprint representing the basic luminance structure.',
 			pros: [
 				'Very fast computation',
 				'Low memory usage',
@@ -22,7 +22,7 @@
 		{
 			name: 'Perceptual Hash (pHash)',
 			description:
-				'A more sophisticated algorithm that uses the Discrete Cosine Transform (DCT) to identify the most important visual features of an image, making it more robust to various transformations.',
+				'A more sophisticated algorithm that uses the Discrete Cosine Transform (DCT) to analyze the image in the frequency domain. It identifies the most important visual features by examining frequency patterns rather than raw pixel values, making it highly robust to transformations.',
 			pros: [
 				'Robust to scaling and rotation',
 				'Good compression resistance',
@@ -41,11 +41,11 @@
 		{
 			name: 'Difference Hash (dHash)',
 			description:
-				'Calculates the hash based on the relative gradient between adjacent pixels, making it particularly good at detecting structural changes in images.',
+				'Calculates the hash based on the relative brightness differences between adjacent pixels (typically horizontal). It creates a 9x8 grayscale image and compares each pixel with its neighbor, setting bits based on which pixel is brighter. This tracks gradients and structural changes effectively.',
 			pros: [
 				'Good for structural similarity',
-				'Efficient computation',
-				'Handles cropping well',
+				'Fast computation (as fast as aHash)',
+				'Tracks relative gradients effectively',
 				'Two variants: horizontal and vertical'
 			],
 			cons: [
@@ -53,7 +53,7 @@
 				'May not work well with very noisy images',
 				'Less robust than pHash'
 			],
-			bestFor: 'Detecting crops, minor edits, and structural similarities',
+			bestFor: 'Detecting structural changes, crops, and minor edits with very fast performance',
 			complexity: 'O(1)',
 			icon: '📈'
 		},
@@ -208,7 +208,8 @@
 			<div class="mb-12 text-center">
 				<h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl">Performance Comparison</h2>
 				<p class="mx-auto max-w-2xl text-lg text-gray-300">
-					Compare different algorithms across key performance metrics
+					Compare different algorithms across key performance metrics. All hashes are compared using
+					Hamming distance - the number of different bits between two hashes.
 				</p>
 			</div>
 
@@ -276,6 +277,17 @@
 							{/each}
 						</tbody>
 					</table>
+				</div>
+
+				<div class="mt-6 rounded-lg border border-blue-600/20 bg-blue-600/10 p-4">
+					<h4 class="mb-2 font-semibold text-blue-400">Hash Comparison Method:</h4>
+					<p class="text-sm text-gray-300">
+						All hash algorithms produce fixed-length fingerprints that are compared using <strong
+							>Hamming distance</strong
+						> - counting the number of differing bits. Lower distances indicate more similar images.
+						A distance of 0 means identical hashes, while distances of 1-10 typically indicate similar
+						images with minor variations.
+					</p>
 				</div>
 			</div>
 		</div>
