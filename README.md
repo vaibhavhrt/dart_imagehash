@@ -2,7 +2,7 @@
 
 A Dart package for perceptual image hashing, inspired by the [Python imagehash library](https://github.com/JohannesBuchner/imagehash).
 
-🌐 **[Project Website](https://vaibhavhrt.github.io/dart_imagehash/)**
+🌐 **<a href="https://vaibhavhrt.github.io/dart_imagehash/" target="_blank">Project Website</a>**
 
 Image hashing algorithms generate compact, fixed-length fingerprints from images that allow you to:
 
